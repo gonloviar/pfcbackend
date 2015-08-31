@@ -6,11 +6,19 @@
 
 package servicios;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author yotas
  */
+
+@Entity
 public class Usuario {
+    
+    @Id
+    private Long id;
     
     private String nombre;
     private String correo;
@@ -41,10 +49,43 @@ public class Usuario {
     }
 
     @Override
-    public String toString() {
-        return "ToString{" + "nombre=" + nombre + ", correo=" + correo + ", edad=" + edad + '}';
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 59 * hash + (this.correo != null ? this.correo.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        if ((this.correo == null) ? (other.correo != null) : !this.correo.equals(other.correo)) {
+            return false;
+        }
+        return true;
     }
     
     
+    @Override
+    public String toString() {
+        return "ToString{" + "nombre=" + nombre + ", correo=" + correo + ", edad=" + edad + '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
 }

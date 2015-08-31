@@ -6,12 +6,14 @@
 
 package servicios;
 
+import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import utilidades.EMF;
 
 /**
  *
@@ -20,11 +22,12 @@ import javax.ws.rs.core.MediaType;
 @Path("/test")
 public class TestResource {
     
-    private Usuario usuario;
+   private Usuario usuario;
     
     public TestResource() {
         System.out.println("====PASANDO POR EL CONSTRUCTOR DEL SERVICIO TEST======");
         usuario = new Usuario();
+        usuario.setId(1L);
         usuario.setNombre("alejo primer");
         usuario.setEdad("29");
         usuario.setCorreo("eseESs@jotameil.com");
@@ -46,12 +49,21 @@ public class TestResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String porFinFunciona(Usuario user){
+        
+        System.out.println("===== ENTRO AL POST otra vez=====");
         usuario= user;
+//        
+        System.out.println("=========== POST:ANTES DEL USAR EMF ==========");
+        EntityManager em= EMF.crearEntityManager();
+        System.out.println("============  POST:DESPUES DE USAR EMF ==========");
+        
+        em.getTransaction().begin();
+        em.persist(usuario);
+        em.getTransaction().commit();
+        
+        System.out.println("===== persistete coño =======");
         
         return usuario.toString();
     }
-    
-    
-    
 }
 
