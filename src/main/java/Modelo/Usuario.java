@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package servicios;
+package Modelo;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -20,9 +21,13 @@ public class Usuario {
     @Id
     private Long id;
     
+    
     private String nombre;
     private String correo;
     private String edad;
+    private Long telefono;
+    
+    private List<Mascota> mascotas; 
 
     public String getNombre() {
         return nombre;
