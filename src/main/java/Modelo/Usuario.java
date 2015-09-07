@@ -6,9 +6,12 @@
 
 package Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
@@ -16,6 +19,9 @@ import javax.persistence.Id;
  */
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+})
 public class Usuario {
     
     @Id
@@ -23,11 +29,15 @@ public class Usuario {
     
     
     private String nombre;
+    
+//    esta anotacion de Jackson permite que este campo no sea "Marshaling" en el output
+    @JsonIgnore
     private String correo;
+    
     private String edad;
     private Long telefono;
     
-    private List<Mascota> mascotas; 
+//    private List<Mascota> mascotas; 
 
     public String getNombre() {
         return nombre;
